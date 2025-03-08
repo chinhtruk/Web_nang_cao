@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Sản Phẩm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark p-3" style="background-color: #ff4500;">
+        <div class="container">
+            <a class="navbar-brand text-white" href="/">🛍️ Shopee Clone</a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mt-5">
+        <h2 class="text-center text-danger fw-bold">➕ Thêm Sản Phẩm Mới</h2>
+        
+        <!-- Feedback Message Placeholder (Optional Integration with Server) -->
+        <% if (success) { %>
+            <div class="alert alert-success" role="alert">
+                Sản phẩm đã được thêm thành công!
+            </div>
+        <% } else if (error) { %>
+            <div class="alert alert-danger" role="alert">
+                Có lỗi xảy ra. Vui lòng thử lại.
+            </div>
+        <% } %>
+
+        <!-- Product Form -->
+        <div class="card shadow-lg p-4">
+            <form action="/admin/add" method="POST" enctype="multipart/form-data">
+                <!-- Product Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold" for="name">Tên sản phẩm</label>
+                    <input type="text" id="name" name="name" class="form-control" required placeholder="Nhập tên sản phẩm" aria-label="Tên sản phẩm">
+                </div>
+
+                <!-- Product Price -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold" for="price">Giá</label>
+                    <input type="number" id="price" name="price" class="form-control" required placeholder="Nhập giá sản phẩm" aria-label="Giá">
+                </div>
+
+                <!-- Product Description -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold" for="description">Mô tả</label>
+                    <textarea id="description" name="description" class="form-control" required placeholder="Nhập mô tả sản phẩm" aria-label="Mô tả sản phẩm"></textarea>
+                </div>
+
+                <!-- Product Image -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold" for="image">Hình ảnh</label>
+                    <input type="file" id="image" name="image" class="form-control" accept="image/*" required onchange="previewImage(event)">
+                    <img id="image-preview" src="" alt="Preview" class="mt-3" style="max-width: 100%; display: none;">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">➕ Thêm sản phẩm</button>
+            </form>
+        </div>
+
+        <!-- Back Button -->
+        <a href="/admin" class="btn btn-secondary mt-3">🔙 Quay lại</a>
+    </div>
+
+    <!-- Image Preview Script -->
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgPreview = document.getElementById('image-preview');
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+</body>
+</html>
